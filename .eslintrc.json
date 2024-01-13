@@ -1,0 +1,40 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    }
+  ],
+	"ignorePatterns": ["/src/generated/**/*.ts"],
+	"rules": {
+		"linebreak-style": ["warn", "unix"],
+		"comma-dangle": [
+			"warn",
+			{
+				"arrays": "always-multiline",
+				"objects": "always-multiline",
+				"imports": "always-multiline",
+				"exports": "always-multiline",
+				"functions": "always-multiline"
+			}
+		],
+		"arrow-parens": ["warn", "always"],
+		"@typescript-eslint/no-floating-promises": "warn",
+		"@typescript-eslint/no-unnecessary-condition": "warn",
+		"@typescript-eslint/strict-boolean-expressions": ["warn", { "allowNullableBoolean": true, "allowAny": true }],
+
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{
+				"vars": "all",
+				"args": "after-used",
+				"ignoreRestSiblings": false,
+				"argsIgnorePattern": "^_"
+			}
+		]
+	}
+}

@@ -1,0 +1,328 @@
+# File
+fragment File on File {
+	id
+	name
+	ext
+}
+
+# Permission
+fragment PermissionListItem on Permission {
+	id
+	code
+	name
+}
+
+# Role
+fragment Role on Role {
+	id
+	code
+	name
+
+	rolePermissions {
+		id
+
+		permission {
+			id
+			code
+			name
+		}
+	}
+}
+
+fragment RoleListItem on Role {
+	id
+	code
+	name
+
+	rolePermissions {
+		...RolePermissionListItem
+	}
+}
+
+# RolePermission
+fragment RolePermissionListItem on RolePermission {
+	id
+
+	permission {
+		id
+		code
+		name
+	}
+}
+
+# EntityType
+fragment EntityType on EntityType {
+	id
+	code
+	name
+}
+
+fragment EntityTypeListItem on EntityType {
+	id
+	code
+	name
+}
+
+# EntityTypeEntityType
+fragment EntityTypeEntityType on EntityTypeEntityType {
+	id
+	isParentChild
+
+	entityType1 {
+		...EntityType
+	}
+
+	entityType2 {
+		...EntityType
+	}
+}
+
+fragment EntityTypeEntityTypeListItem on EntityTypeEntityType {
+	id
+
+	entityType1 {
+		id
+		code
+		name
+	}
+
+	entityType2 {
+		id
+		code
+		name
+	}
+}
+
+# EntityTypeEntityTypeRole
+fragment EntityTypeEntityTypeRole on EntityTypeEntityTypeRole {
+	id
+	name1
+	name2
+
+	entityTypeEntityType {
+		...EntityTypeEntityType
+	}
+}
+
+fragment EntityTypeEntityTypeRoleListItem on EntityTypeEntityTypeRole {
+	id
+
+	entityTypeEntityType {
+		id
+
+		entityType1 {
+			id
+			code
+			name
+		}
+
+		entityType2 {
+			id
+			code
+			name
+		}
+	}
+}
+
+# FieldType
+fragment FieldType on FieldType {
+	id
+	name
+	jsonType
+}
+
+fragment FieldTypeListItem on FieldType {
+	id
+	name
+	jsonType
+}
+
+# EntityTypeField
+fragment EntityTypeField on EntityTypeField {
+	id
+	code
+	name
+	isRequired
+	category
+	sortOrder
+	isFilterAndTableColumn
+
+	fieldType {
+		...FieldType
+	}
+
+	entityTypeFieldWorkflowSteps {
+		id
+
+		entityTypeWorkflowStep {
+			id
+			name
+			sortOrder
+		}
+	}
+}
+
+fragment EntityTypeFieldListItem on EntityTypeField {
+	id
+	code
+	name
+	isRequired
+	category
+	sortOrder
+	isFilterAndTableColumn
+
+	fieldType {
+		...FieldTypeListItem
+	}
+}
+
+# Entity
+fragment Entity on Entity {
+	id
+	values
+}
+
+fragment EntityListItem on Entity {
+	id
+	values
+}
+
+fragment RelatedEntityListItem on Entity {
+	id
+	values
+
+	entityEntities {
+		id
+		isRoleName2ForEntity2
+
+		entityTypeEntityTypeRole {
+			id
+
+			name1
+			name2
+		}
+	}
+
+	entity2EntityEntities {
+		id
+		isRoleName2ForEntity2
+
+		entityTypeEntityTypeRole {
+			id
+
+			name1
+			name2
+		}
+	}
+}
+
+# Address
+fragment AddressListItem on Address {
+	id
+	number
+	street
+	city
+	state
+	unit
+	zipCode
+	label
+}
+
+# EntityTypeAddressRole
+fragment EntityTypeAddressRoleListItem on EntityTypeAddressRole {
+	id
+	name
+}
+
+# EntityAddress
+fragment EntityAddressListItem on EntityAddress {
+	id
+	name
+	unit
+
+	address {
+		id
+		street
+		city
+		state
+		zipCode
+		unit
+	}
+
+	entityTypeAddressRole {
+		id
+		name
+	}
+}
+
+# EntityFile
+fragment EntityFileListItem on EntityFile {
+	id
+
+	file {
+		...File
+	}
+}
+
+# EntityTypeLogType
+fragment EntityTypeLogTypeListItem on EntityTypeLogType {
+	id
+	code
+	name
+}
+
+# EntityLog
+fragment EntityLogListItem on EntityLog {
+	id
+	message
+
+	type {
+		id
+		name
+	}
+}
+
+# SearchAllView
+fragment SearchAllViewListItem on SearchAllView {
+	id
+	text
+
+	entity {
+		id
+
+		type {
+			id
+			name
+		}
+	}
+}
+
+# EntityTypeWorkflowStep
+fragment EntityTypeWorkflowStep on EntityTypeWorkflowStep {
+	id
+	name
+	sortOrder
+
+	entityTypeFieldWorkflowSteps {
+		id
+
+		entityTypeField {
+			id
+			code
+			name
+			isRequired
+			category
+			sortOrder
+
+			fieldType {
+				...FieldType
+			}
+		}
+	}
+}
+
+fragment EntityTypeWorkflowStepListItem on EntityTypeWorkflowStep {
+	id
+	name
+	sortOrder
+}

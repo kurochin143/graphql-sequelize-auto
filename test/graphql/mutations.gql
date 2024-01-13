@@ -1,0 +1,203 @@
+mutation login($input: LoginInput!) {
+	login(input: $input) {
+		token
+	}
+}
+
+# EntityType
+mutation addEntityType($input: AddEntityTypeInput!) {
+	addEntityTypes(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation editEntityType($input: EditEntityTypeInput!) {
+	editEntityTypes(input: { inputs: [$input] })
+}
+
+mutation removeEntityType($id: Int!) {
+	removeEntityTypes(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityTypeEntityType
+mutation addEntityTypeEntityType($input: AddEntityTypeEntityTypeInput!) {
+	addEntityTypeEntityTypes(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation editEntityTypeEntityType($input: EditEntityTypeEntityTypeInput!) {
+	editEntityTypeEntityTypes(input: { inputs: [$input] })
+}
+
+mutation removeEntityTypeEntityType($id: Int!) {
+	removeEntityTypeEntityTypes(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityTypeEntityTypeRole
+mutation addEntityTypeEntityTypeRole($input: AddEntityTypeEntityTypeRoleInput!) {
+	addEntityTypeEntityTypeRoles(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation removeEntityTypeEntityTypeRole($id: Int!) {
+	removeEntityTypeEntityTypeRoles(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityTypeField
+mutation addEntityTypeField($input: AddEntityTypeFieldInput!) {
+	addEntityTypeFields(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation editEntityTypeField($input: EditEntityTypeFieldInput!) {
+	editEntityTypeFields(input: { inputs: [$input] })
+}
+
+mutation removeEntityTypeField($id: Int!) {
+	removeEntityTypeFields(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# Entity
+mutation addEntity($input: AddEntityInput!) {
+	addEntities(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation editEntity($input: EditEntityInput!) {
+	editEntities(input: { inputs: [$input] })
+}
+
+mutation removeEntity($id: BigInt!) {
+	removeEntities(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityEntity
+mutation addNewEntityEntity($input: AddEntityEntityInput!) {
+	addEntityEntities(input: { inputs: [$input] }) {
+		rows {
+			id
+			entity2 {
+				id
+			}
+		}
+	}
+}
+
+mutation addExistingEntityEntity($input: AddExistingEntityEntityInput!) {
+	addExistingEntityEntities(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation removeEntityEntity($id: Int!) {
+	removeEntityEntities(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityTypeAddressRole
+mutation addEntityTypeAddressRole($input: AddEntityTypeAddressRoleInput!) {
+	addEntityTypeAddressRoles(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation removeEntityTypeAddressRole($id: Int!) {
+	removeEntityTypeAddressRoles(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityAddress
+mutation addNewEntityAddress($input: AddEntityAddressInput!) {
+	addEntityAddresses(input: { inputs: [$input] }) {
+		rows {
+			id
+			address {
+				id
+			}
+		}
+	}
+}
+
+mutation addExistingEntityAddress($input: AddExistingEntityAddressInput!) {
+	addExistingEntityAddresses(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation removeEntityAddress($id: Int!) {
+	removeEntityAddresses(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityFile
+mutation addEntityFile($input: AddEntityFileInput!) {
+	addEntityFiles(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation removeEntityFile($id: Int!) {
+	removeEntityFiles(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityTypeLogType
+mutation addEntityTypeLogType($input: AddEntityTypeLogTypeInput!) {
+	addEntityTypeLogTypes(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation removeEntityTypeLogType($id: Int!) {
+	removeEntityTypeLogTypes(input: { primaryKeysList: [{ id: $id }] })
+}
+
+# EntityLog
+mutation addEntityLog($input: AddEntityLogInput!) {
+	addEntityLogs(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation softRemoveEntityLog($id: Int!) {
+	softRemoveEntityLogs(input: { ids: [$id] })
+}
+
+# EntityTypeWorkflowSteps
+mutation addEntityTypeWorkflowSteps($input: AddEntityTypeWorkflowStepInput!) {
+	addEntityTypeWorkflowSteps(input: { inputs: [$input] }) {
+		rows {
+			id
+		}
+	}
+}
+
+mutation editEntityTypeWorkflowStep($input: EditEntityTypeWorkflowStepInput!) {
+	editEntityTypeWorkflowSteps(input: { inputs: [$input] })
+}
+
+mutation removeEntityTypeWorkflowStep($id: Int!) {
+	removeEntityTypeWorkflowSteps(input: { primaryKeysList: [{ id: $id }] })
+}

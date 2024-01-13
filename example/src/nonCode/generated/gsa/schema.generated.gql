@@ -1,0 +1,477 @@
+type Query {
+	# public.users
+	# Users
+	getUsers(input: GetUsersInput): GetUsersOutput!
+
+	# public.permissions
+	# Permissions
+	getPermissions(input: GetPermissionsInput): GetPermissionsOutput!
+
+	# public.roles
+	# Roles
+	getRoles(input: GetRolesInput): GetRolesOutput!
+
+	# public.user_roles
+	# UserRoles
+
+	# public.role_permissions
+	# RolePermissions
+	getRolePermissions(input: GetRolePermissionsInput): GetRolePermissionsOutput!
+
+}
+
+type Mutation {
+	# public.users
+	addUsers(input: AddUsersInput!): AddUsersOutput!
+	editUsers(input: EditUsersInput!): Int!
+	removeUsers(input: RemoveUsersInput!): Int!
+
+	# public.roles
+	addRoles(input: AddRolesInput!): AddRolesOutput!
+	editRoles(input: EditRolesInput!): Int!
+	removeRoles(input: RemoveRolesInput!): Int!
+
+}
+
+scalar NullableString
+scalar NullableInt
+scalar NullableFloat
+scalar NullableBoolean
+scalar NullableDate
+
+scalar Date
+scalar UnknownTypeStringified
+
+scalar Json
+
+scalar NullableJson
+
+scalar BigInt
+
+scalar NullableBigInt
+enum FilterOperators {
+	EQUAL
+	NOT_EQUAL
+	GREATER_THAN
+	GREATER_THAN_OR_EQUAL
+	LESS_THAN
+	LESS_THAN_OR_EQUAL
+	LIKE
+	I_LIKE
+}
+
+input StringFilter {
+	val: String!
+	op: FilterOperators!
+}
+
+input NullableStringFilter {
+	val: NullableString
+	op: FilterOperators!
+}
+
+input IntFilter {
+	val: Int!
+	op: FilterOperators!
+}
+
+input NullableIntFilter {
+	val: NullableInt
+	op: FilterOperators!
+}
+
+input FloatFilter {
+	val: Float!
+	op: FilterOperators!
+}
+
+input NullableFloatFilter {
+	val: NullableFloat
+	op: FilterOperators!
+}
+
+input BooleanFilter {
+	val: Boolean!
+	op: FilterOperators!
+}
+
+input NullableBooleanFilter {
+	val: NullableBoolean
+	op: FilterOperators!
+}
+
+input DateFilter {
+	val: Date!
+	op: FilterOperators!
+}
+
+input NullableDateFilter {
+	val: NullableDate
+	op: FilterOperators!
+}
+
+input JsonFilter {
+	name: String!
+	# Must be json parsable
+	val: String!
+	op: FilterOperators!
+}
+
+input BigIntFilter {
+	val: BigInt!
+	op: FilterOperators!
+}
+
+input NullableBigIntFilter {
+	val: NullableBigInt
+	op: FilterOperators!
+}
+
+input Pagination {
+	offset: Int
+	limit: Int
+}
+
+# Will be merged with sortBy
+input JsonFieldSortBy {
+	sortByName: String!
+	jsonFieldName: String!
+	isDesc: Boolean
+	# Will be inserted to this index during merge with sortBy
+	index: Int!
+}
+
+# public.users
+# User get
+type User {
+	id: Int!
+	username: String!
+	userUserRoles: [UserRole!]!
+}
+
+type GetUsersOutput {
+	count: Int!
+	rows: [User!]!
+}
+
+input GetUsersByUserUserRolesByRoleByRolePermissionsByPermissionFilterFields {
+	id: IntFilter
+}
+
+input GetUsersByUserUserRolesByRoleByRolePermissionsFilterFields {
+	permission: GetUsersByUserUserRolesByRoleByRolePermissionsByPermissionFilterFields
+}
+
+input GetUsersByUserUserRolesByRoleFilterFields {
+	rolePermissions: GetUsersByUserUserRolesByRoleByRolePermissionsFilterFields
+}
+
+input GetUsersByUserUserRolesFilterFields {
+	role: GetUsersByUserUserRolesByRoleFilterFields
+}
+
+input GetUsersFilterFields {
+	id: IntFilter
+	username: StringFilter
+	userUserRoles: GetUsersByUserUserRolesFilterFields
+}
+
+input GetUsersFilter {
+	fields: GetUsersFilterFields
+	and: [GetUsersFilter!]
+	or: [GetUsersFilter!]
+}
+
+enum GetUsersSortByNames {
+	id
+	username
+}
+
+input GetUsersSortBy {
+	name: GetUsersSortByNames!
+	isDesc: Boolean
+}
+
+input GetUsersInput {
+	filter: GetUsersFilter
+	sortBys: [GetUsersSortBy!]
+	pagination: Pagination
+}
+
+# User add
+input AddUserPrimaryFields {
+	username: String!
+	password: String!
+}
+
+input AddUserWithUserUserRolesPrimaryFields {
+	roleId: Int!
+}
+
+input AddUserWithUserUserRolesInput {
+	primaryFields: AddUserWithUserUserRolesPrimaryFields!
+}
+
+input AddUserAssociatedFields {
+	userUserRoles: [AddUserWithUserUserRolesInput!]!
+}
+
+input AddUserInput {
+	primaryFields: AddUserPrimaryFields!
+	associatedFields: AddUserAssociatedFields!
+}
+
+type AddedUser {
+	id: Int!
+}
+
+type AddUsersOutput {
+	rows: [AddedUser!]!
+}
+
+input AddUsersInput {
+	inputs: [AddUserInput!]!
+}
+
+# User edit
+input EditUserPrimaryKeys {
+	id: Int!
+}
+
+input EditUserPrimaryFields {
+	firstName: NullableString
+	lastName: NullableString
+}
+
+input EditUserWithUserUserRolesPrimaryKeys {
+	id: Int!
+}
+
+input EditUserWithUserUserRolesPrimaryFields {
+	roleId: Int!
+}
+
+input EditUserWithUserUserRolesInput {
+	primaryKeys: EditUserWithUserUserRolesPrimaryKeys
+	primaryFields: EditUserWithUserUserRolesPrimaryFields!
+}
+
+input EditUserAssociatedFields {
+	userUserRoles: [EditUserWithUserUserRolesInput!]!
+}
+
+input EditUserInput {
+	primaryKeys: EditUserPrimaryKeys!
+	primaryFields: EditUserPrimaryFields
+	associatedFields: EditUserAssociatedFields!
+}
+
+input EditUsersInput {
+	inputs: [EditUserInput!]!
+}
+
+# User remove
+input RemoveUsersPrimaryKeys {
+	id: Int!
+}
+
+input RemoveUsersInput {
+	primaryKeysList: [RemoveUsersPrimaryKeys!]!
+}
+
+# public.permissions
+# Permission get
+type Permission {
+	id: Int!
+	name: String!
+}
+
+type GetPermissionsOutput {
+	count: Int!
+	rows: [Permission!]!
+}
+
+input GetPermissionsFilterFields {
+	name: StringFilter
+}
+
+input GetPermissionsFilter {
+	fields: GetPermissionsFilterFields
+	and: [GetPermissionsFilter!]
+	or: [GetPermissionsFilter!]
+}
+
+enum GetPermissionsSortByNames {
+	name
+}
+
+input GetPermissionsSortBy {
+	name: GetPermissionsSortByNames!
+	isDesc: Boolean
+}
+
+input GetPermissionsInput {
+	filter: GetPermissionsFilter
+	sortBys: [GetPermissionsSortBy!]
+	pagination: Pagination
+}
+
+# public.roles
+# Role get
+type Role {
+	id: Int!
+	name: String!
+	rolePermissions: [RolePermission!]!
+}
+
+type GetRolesOutput {
+	count: Int!
+	rows: [Role!]!
+}
+
+input GetRolesFilterFields {
+	id: IntFilter
+	name: StringFilter
+}
+
+input GetRolesFilter {
+	fields: GetRolesFilterFields
+	and: [GetRolesFilter!]
+	or: [GetRolesFilter!]
+}
+
+enum GetRolesSortByNames {
+	id
+	name
+}
+
+input GetRolesSortBy {
+	name: GetRolesSortByNames!
+	isDesc: Boolean
+}
+
+input GetRolesInput {
+	filter: GetRolesFilter
+	sortBys: [GetRolesSortBy!]
+	pagination: Pagination
+}
+
+# Role add
+input AddRolePrimaryFields {
+	name: String!
+}
+
+input AddRoleWithRolePermissionsPrimaryFields {
+	permissionId: Int!
+}
+
+input AddRoleWithRolePermissionsInput {
+	primaryFields: AddRoleWithRolePermissionsPrimaryFields!
+}
+
+input AddRoleAssociatedFields {
+	rolePermissions: [AddRoleWithRolePermissionsInput!]!
+}
+
+input AddRoleInput {
+	primaryFields: AddRolePrimaryFields!
+	associatedFields: AddRoleAssociatedFields!
+}
+
+type AddedRole {
+	id: Int!
+}
+
+type AddRolesOutput {
+	rows: [AddedRole!]!
+}
+
+input AddRolesInput {
+	inputs: [AddRoleInput!]!
+}
+
+# Role edit
+input EditRolePrimaryKeys {
+	id: Int!
+}
+
+input EditRolePrimaryFields {
+	name: String!
+}
+
+input EditRoleWithRolePermissionsPrimaryKeys {
+	id: Int!
+}
+
+input EditRoleWithRolePermissionsPrimaryFields {
+	permissionId: Int!
+}
+
+input EditRoleWithRolePermissionsInput {
+	primaryKeys: EditRoleWithRolePermissionsPrimaryKeys
+	primaryFields: EditRoleWithRolePermissionsPrimaryFields!
+}
+
+input EditRoleAssociatedFields {
+	rolePermissions: [EditRoleWithRolePermissionsInput!]!
+}
+
+input EditRoleInput {
+	primaryKeys: EditRolePrimaryKeys!
+	primaryFields: EditRolePrimaryFields!
+	associatedFields: EditRoleAssociatedFields!
+}
+
+input EditRolesInput {
+	inputs: [EditRoleInput!]!
+}
+
+# Role remove
+input RemoveRolesPrimaryKeys {
+	id: Int!
+}
+
+input RemoveRolesInput {
+	primaryKeysList: [RemoveRolesPrimaryKeys!]!
+}
+
+# public.user_roles
+# UserRole get
+type UserRole {
+	id: Int!
+	role: Role!
+}
+
+type GetUserRolesOutput {
+	count: Int!
+	rows: [UserRole!]!
+}
+
+# public.role_permissions
+# RolePermission get
+type RolePermission {
+	id: Int!
+	role: Role!
+	permission: Permission!
+}
+
+type GetRolePermissionsOutput {
+	count: Int!
+	rows: [RolePermission!]!
+}
+
+input GetRolePermissionsFilterFields {
+	roleId: IntFilter
+}
+
+input GetRolePermissionsFilter {
+	fields: GetRolePermissionsFilterFields
+	and: [GetRolePermissionsFilter!]
+	or: [GetRolePermissionsFilter!]
+}
+
+input GetRolePermissionsInput {
+	filter: GetRolePermissionsFilter
+	pagination: Pagination
+}
+

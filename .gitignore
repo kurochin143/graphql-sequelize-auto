@@ -1,0 +1,7 @@
+.env
+build
+node_modules
+.DS_STORE
+docker/db/tsql/temp
+
+coverage
