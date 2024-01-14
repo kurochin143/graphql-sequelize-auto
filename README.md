@@ -10,12 +10,46 @@ In order to use this tool, you must know how to use these first.
 
 - [`GraphQL`](https://graphql.org/) 
 - [`Sequelize`](https://sequelize.org/)
+- [`TypeScript`](https://www.typescriptlang.org/)
+
+## Prerequisite Packages
+
+- [`sequelize`](https://www.npmjs.com/package//sequelize) peer dependency
+- [`typescript`](https://www.npmjs.com/package/typescript)
+
+And all dependencies in [package.json](./package.json)
 
 ## How To Use
 
 ### Using the source code directly
 
-Create folder `scripts/gsa` in your project root, and copy `src` content to it.
+#### Prerequisite Packages
+
+- [`ts-node`](https://www.npmjs.com/package/ts-node) used to run the source code directly
+
+#### Copy source code
+
+Create folder `scripts/gsa` in your project root, and copy [`src`](./src) content to it.
+
+#### Config
+
+Follow the [config](#config) tutorial
+
+#### Scripts
+```json
+{
+  "gsa": "ts-node ./scripts/gsa/index.ts -c ./gsa.config"
+}
+```
+
+#### Commands
+```
+$npm run gsa
+```
+
+### npm (TBD)
+
+## Config<a name="config"></a>
 
 Create a `gsa.config.ts` file in your project root
 
@@ -24,33 +58,214 @@ Create a `gsa.config.ts` file in your project root
 import { GsaConfig } from "./scripts/gsa/src";
 
 const config: GsaConfig = {
-	// generated sequelize models and codes dir
+	// Generated sequelize models and codes dir
 	codeFilesDir: "./src/generated/gsa",
-	// generated GraphQL schema and non code files
+	// Generated GraphQL schema and non code files
 	nonCodeFilesDir: "./src/nonCode/generated/gsa",
-	// custom GraphQL schema
+	// Custom GraphQL schema
 	additionalGqlSchemas: ["./src/nonCode/schema.gql"],
-	// database host
+	// Database host
 	host: process.env.DB_HOST!,
-	// database port
+	// Database port
 	port: parseInt(process.env.DB_PORT!),
-	// database name
+	// Database name
 	database: process.env.DB_NAME!,
-	// database username
+	// Database username
 	username: process.env.DB_USER!,
-	// database password
+	// Database password
 	password: process.env.DB_PASS!,
-	// database type
+	// Database type
 	dialect: "postgres",
-	// tables to skip generating sequelize models
+	// Tables to skip generating sequelize models
 	skipTables: ["public.sequelize_migrations"],
-	// see example gsa.config.ts file's tableConfigs
+	// See Table Config section
 	tableConfigs: []
 }
 ```
 
-### npm (TBD)
+### Table Config
+```typescript
+{
+	// Name of the database table including the schema
+	name: "public.users",
+	// You can create multiple alias of one table such as User, PublicUser, PrivateUser
+	aliasConfigs: [
+		{
+			// Name of the GraphQL type that will be generated
+			name: "User",
+			// Read
+			get: {
+				input: {
+					// Exposed filter fields
+					filterFields: [
+						{	// Primary field filter
+							// Name of the field from the generated sequelize model in <codeFilesDir>/sequelize/Users.ts
+							name: "id",
+							// Allowed operators
+							operators: [FilterOperators.Equal],
+						},
+						{
+							name: "username",
+							operators: [FilterOperators.Like],
+						},
+						{	// Associated field filter
+							// This is an associated table
+							name: "userUserRoles",
+							filterFields: [
+								{
+									// Associated table of the one above
+									name: "role",
+									filterFields: [
+										{
+											name: "rolePermissions",
+											filterFields: [
+												{
+													name: "permission",
+													filterFields: [
+														{
+															// The actual field that will be filtered for this nested filter
+															name: "id",
+															operators: [FilterOperators.Equal],
+														},
+														{
+															name: "name",
+															operators: [FilterOperators.Like],
+														},
+													],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
+					// Exposed sort fields
+					sortByFields: [
+						{	// Simple sort field
+							name: "id",
+						},
+						{
+							name: "username",
+						},
+						{	// Associated sort field
+							name: "userUserRoles",
+							sortByFields: [{
+								name: "role",
+								sortByFields: [{
+									// The actual field that will be sorted for this nested sorting
+									name: "code",
+								}, {
+									name: "name",
+								}],
+							}],
+						},
+					],
+				},
+				output: {
+					// Exposed primary output fields
+					primaryFields: {
+						include: ["id", "username"],
+					},
+					// Exposed associated output fields
+					associatedFields: [
+						{
+							name: "userUserRoles",
+							// The name of the GraphQL type, this is defined in the aliasConfigs array element
+							aliasName: "UserRole",
+						},
+					],
+				},
+			},
+			// Create
+			add: {
+				input: {
+					// Exposed primary input fields when adding
+					primaryFields: {
+						include: ["username", "password"],
+					},
+					// Exposed primary output fields when adding
+					associatedFields: [
+						{
+							name: "userUserRoles",
+							isOptional: false,
+							input: {
+								primaryFields: {
+									isOptional: false,
+									include: ["roleId"],
+								},
+							},
+						},
+					],
+				},
+				output: {
+					primaryFields: {
+						include: ["id"],
+					},
+				},
+			},
+			// Update
+			edit: {
+				input: {
+					primaryFields: {
+						include: ["firstName", "lastName"],
+					},
+					associatedFields: [
+						{
+							name: "userUserRoles",
+							isOptional: false,
+							input: {
+								primaryFields: {
+									include: ["roleId"],
+								},
+							},
+						},
+					],
+				},
+			},
+			// Delete
+			remove: {
+				// Generates remove mutation
+				isEnabled: true,
+			},
+		},
+	],
+},
+```
 
+## Code Usage
+
+Creating a `gsa` object
+```typescript
+import { GraphQLSequelizeAuto } from "./scripts/gsa/service/GraphQLSequelizeAuto"; // When directly using source code
+import { GraphQLSequelizeAuto } from "graphql-sequelize-auto"; // If using npm package
+
+const gsa = new GraphQLSequelizeAuto(
+	sequelize, // Your sequelize object
+	path.resolve(__dirname, "./nonCode/generated/gsa/mappings.generated.json"), // This is generated by gsa in the nonCode dir
+);
+```
+
+Using the `gsa` object in the resolver
+```typescript
+import {
+	GetUsersOutput,
+	QueryGetUsersArgs,
+} from "../generated/gsa/graphql.generated";
+
+// This is using Apollo GraphQL server resolver. But as long as the library you're using has GraphQLResolveInfo then it should work
+getUsers: async (
+	args: QueryGetUsersArgs,
+	_context: unknown,
+	graphqlResolveInfo: GraphQLResolveInfo,
+): Promise<GetUsersOutput> => {
+	return gsa.getAll(args, graphqlResolveInfo);
+},
+```
+
+## Scalar Resolvers
+
+You can resolve the generated scalars yourself or use [loadGraphQLSchema](./example/src/graphql/loadGraphQLSchema.ts)
 
 ## Example Project
 
