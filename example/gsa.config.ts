@@ -1,4 +1,5 @@
-import { FilterOperators, GsaConfig, GsaGraphQLTypes } from "./scripts/gsa";
+import { GsaConfig } from "graphql-sequelize-auto-generator";
+import { FilterOperators } from "graphql-sequelize-auto-generator/build/cli/enums";
 
 const config: GsaConfig = {
 	codeFilesDir: "./src/generated/gsa",

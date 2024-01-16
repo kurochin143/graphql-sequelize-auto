@@ -8,8 +8,9 @@
     "sourceMap": true,
     "outDir": "build",
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "declaration": true
   },
   "lib": ["es2015"],
-  "include": ["src", "scripts", "test"]
+  "include": ["src/index.ts"]
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import SequelizeAuto from "sequelize-auto";
 import fse from "fs-extra";
 import generateGraphQLTypes from "./generateGraphQLTypes";
@@ -9,52 +11,8 @@ import addAdditionalRelations from "./addAdditionalAssociations";
 import validateConfigs from "./validateConfigs";
 import mapToObjectMap from "./mapToObjectMap";
 import { program } from "commander";
-
-// @TODO currently only supports hasMany and belongsTo or oneToMany/manyToOne
-// @TODO optional required fields. Rationale, fill it out manually in the resolver
-// @TODO required optional fields
-// @TODO separate edit associatedFields into add/edit/editOrRemove/addOrEditOrRemove. Rationale, sometimes you don't want to edit fields after adding
-// @TODO separate aliasName from get, add, edit, remove. Only get should have aliasName (or add?)
-// @TODO on edit/add associatedFields, remove the parent's primary key on primaryFields
-// @TODO restrict filter operators
-// @TODO required filter***
-// @TODO validation error reporting, the word output/input is missing
-// @TODO isEnum field. Don't forget sequelize class
-// @TODO sequelize-auto does not support compound foreign key. All targetKey is pointing to the first targetKey
-// @TODO edit/remove isStrict, the filter count should be to edited/removed count. Triggers with update/?delete? will add the update/?delete? count
-// @TODO canPaginate default to false
-// @TODO manual associatedField isArray false. For m2m tables that's actually o2o to o2o to o2o
-// @TODO designate a table as enum, generate enum based on that table's rows, use that enum as type
-// @TODO add without input throws an error
-// @TODO pass additional codegen config in gsaConfig
-// @TODO edit/remove custom output
-// @TODO might wanna return edit/remove by other fields than primary key fields. Useful for one to one tables
-// @TODO flat/custom filter, you write the filter function (id === eqId && name like likeName)) in the config,
-// the schema does not generate { and:[] , or:[] }, only { eqId: number , likeName: string }
-// @TODO do not add comment in query/mutation if there's no query/mutation
-// @TODO self one to many, eg. users.users and users.user
-// @TODO sequelize-auto nullable associated fields
-// @TODO generate class without functions to prevent devs from using the one with functions
-// @TODO sub filter/orderBy/pagination
-// @TODO rename variable names "raw" to associatedFieldInfo
-// @TODO currently only supports snake_case db names
-// @TODO automatically separate deep nested fields into separate queries. see @separators in gsaService. make sure to limit the level of nesting to prevent breaking the api, set default
-// @TODO add additionAssociations types to the sequelize class
-// @TODO additionAssociations oneToMany
-// @TODO rename primary to primitive
-
-export enum GsaGraphQLTypes {
-	String = "String",
-	Int = "Int",
-	Float = "Float",
-	Boolean = "Boolean",
-	Date = "Date",
-	NullableString = "NullableString", // generates (string | null) type
-	NullableInt = "NullableInt",
-	NullableFloat = "NullableFloat",
-	NullableBoolean = "NullableBoolean",
-	NullableDate = "NullableDate",
-}
+import * as tsNode from "ts-node";
+import { FilterOperators, GsaGraphQLTypes } from "./enums";
 
 export interface InputCustomFieldConfig {
 	name: string;
@@ -82,17 +40,6 @@ export interface InputPrimaryFieldsConfig {
 
 	include: string[];
 	// exclude?: string[]; // @TODO
-}
-
-export enum FilterOperators {
-	Equal = "EQUAL",
-	NotEqual = "NOT_EQUAL",
-	GreaterThan = "GREATER_THAN",
-	GreaterThanOrEqual = "GREATER_THAN_OR_EQUAL",
-	LessThan = "LESS_THAN",
-	LessThanOrEqual = "LESS_THAN_OR_EQUAL",
-	Like = "LIKE",
-	ILike = "I_LIKE",
 }
 
 // @NOTE is not using "[fieldName: string]: Config" to prevent fieldName conflict
@@ -303,6 +250,8 @@ const parseOptions = () => {
 };
 
 const SEQUELIZE_AUTO_DIR = "sequelize";
+
+tsNode.register();
 
 (() => {
 	const options = parseOptions();

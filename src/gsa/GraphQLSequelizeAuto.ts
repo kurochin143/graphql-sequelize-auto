@@ -1,10 +1,10 @@
 import { GraphQLResolveInfo } from "graphql";
 import { parseResolveInfo, ResolveTree } from "graphql-parse-resolve-info";
-import { AssociatedFieldInfo, PrimaryFieldInfo, TableInfoObjectMap } from "../getTableInfos";
+import { AssociatedFieldInfo, PrimaryFieldInfo, TableInfoObjectMap } from "../cli/getTableInfos";
 import { IncludeOptions, Op, Order, Sequelize, Transaction, Utils, WhereOptions } from "sequelize";
 import { camelCase, snakeCase, upperFirst } from "lodash";
 import fse from "fs-extra";
-import { GsaMappings } from "../generateMappings";
+import { GsaMappings } from "../cli/generateMappings";
 
 // @TODO rename to replace GraphQL in types with Gsa
 
@@ -367,6 +367,10 @@ export class GraphQLSequelizeAuto {
 							limit = options.maxLimit;
 						} // else no limit
 					}
+				} else {
+					if (options.maxLimit !== 0) {
+						limit = options.maxLimit;
+					} // else no limit
 				}
 			}
 

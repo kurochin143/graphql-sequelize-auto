@@ -1,4 +1,4 @@
-# Graphql Sequelize Auto (GSA)
+# Graphql Sequelize Auto Generator (GSA)
 
 Config based GraphQL schema generator.
 
@@ -6,30 +6,20 @@ Automatically generate GraphQL CRUD queries and provides a service that processe
 
 ## Prerequisite Knowledge
 
-In order to use this tool, you must know how to use these first.
+In order to use this tool, you must know how to use
 
 - [`GraphQL`](https://graphql.org/) 
 - [`Sequelize`](https://sequelize.org/)
 - [`TypeScript`](https://www.typescriptlang.org/)
 
-## Prerequisite Packages
-
-- [`sequelize`](https://www.npmjs.com/package//sequelize) peer dependency
-- [`typescript`](https://www.npmjs.com/package/typescript)
-
-And all dependencies in [package.json](./package.json)
-
 ## How To Use
 
-### Using the source code directly
+### npm package
 
-#### Prerequisite Packages
-
-- [`ts-node`](https://www.npmjs.com/package/ts-node) used to run the source code directly
-
-#### Copy source code
-
-Create folder `scripts/gsa` in your project root, and copy [`src`](./src) content to it.
+Install package
+```
+$npm install graphql-sequelize-auto-generator -D
+```
 
 #### Config
 
@@ -42,12 +32,14 @@ Follow the [config](#config) tutorial
 }
 ```
 
-#### Commands
+#### Generate
 ```
 $npm run gsa
 ```
 
-### npm (TBD)
+#### Code Usage
+
+Follow the [code usage](#code_usage) tutorial
 
 ## Config<a name="config"></a>
 
@@ -233,7 +225,7 @@ const config: GsaConfig = {
 },
 ```
 
-## Code Usage
+## Code Usage<a name="code_usage"></a>
 
 Creating a `gsa` object
 ```typescript
@@ -265,10 +257,13 @@ getUsers: async (
 
 ## Scalar Resolvers
 
-You can resolve the generated scalars yourself or use [loadGraphQLSchema](./example/src/graphql/loadGraphQLSchema.ts)
+You can resolve the generated scalars yourself or use gsaResolvers like in the [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/graphql/loadGraphQLSchema.ts)
+```
+import { gsaResolvers } from "graphql-sequelize-auto-generator";
+```
 
 ## Example Project
 
-See example project at [`example`](./example)
+See example project at [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example)
 
-See generated GraphQL schema at [`schema`](./example/src/nonCode/generated/gsa/schema.generated.gql)
+See the generated GraphQL schema at [`schema`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/nonCode/generated/gsa/schema.generated.gql)

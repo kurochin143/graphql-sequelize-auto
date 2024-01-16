@@ -1,7 +1,7 @@
 import path from "path";
 import db from "../db";
 import KnownError from "../classes/KnownError";
-import { GraphQLSequelizeAuto } from "../../scripts/gsa/service/GraphQLSequelizeAuto";
+import { GraphQLSequelizeAuto } from "graphql-sequelize-auto-generator";
 
 let _gsa: GraphQLSequelizeAuto | undefined;
 

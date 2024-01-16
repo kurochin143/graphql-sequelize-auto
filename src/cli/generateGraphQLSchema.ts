@@ -1,7 +1,7 @@
 import { ColumnDescription, Utils } from "sequelize";
 import _, { upperFirst } from "lodash";
 import { TableInfo } from "./getTableInfos";
-import { tabs } from "./utils";
+import { tabs } from "../utils/utils";
 import {
 	AddAssociatedFieldConfig,
 	AddConfig,

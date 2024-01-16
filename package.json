@@ -1,14 +1,23 @@
 {
-  "name": "graphql-sequelize-auto",
-  "version": "1.0.0",
+  "name": "graphql-sequelize-auto-generator",
+  "version": "1.0.7",
   "description": "",
-  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "module": "node",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build",
+    "README.md"
+  ],
+  "bin": {
+    "gsa": "./build/cli/index.js"
+  },
   "scripts": {
+    "build": "rimraf build && tsc",
     "test:server": "dotenv -e ./test/.env -- ts-node ./test/server.ts",
     "gen": "ts-node ./src/index.ts"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@graphql-codegen/core": "^2.1.0",
     "@graphql-codegen/typescript": "^2.2.2",
@@ -18,12 +27,11 @@
     "graphql": "^15.5.3",
     "graphql-parse-resolve-info": "^4.12.0",
     "lodash": "^4.17.21",
+    "sequelize": "^6.6.5",
     "sequelize-auto": "https://github.com/kurochin143/sequelize-auto/tarball/build"
   },
-  "peerDependencies": {
-    "sequelize": "^6.6.5"
-  },
   "devDependencies": {
+    "@graphql-tools/apollo-engine-loader": "^8.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.12",
@@ -38,8 +46,7 @@
     "express-graphql": "^0.12.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.6.5",
-    "ts-node": "^10.2.1",
+    "rimraf": "^5.0.5",
     "typescript": "^4.4.3"
   }
 }
