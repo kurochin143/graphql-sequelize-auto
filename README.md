@@ -2,7 +2,7 @@
 
 Config based GraphQL schema generator.
 
-Automatically generate GraphQL CRUD queries and provides a service that processes GraphQL resolvers input that automatically queries the database.
+Generates GraphQL CRUD queries based on database schema and configuration. It also provides a service that will query the database based using the generated GraphQL query.
 
 ## Prerequisite Knowledge
 
@@ -11,6 +11,12 @@ In order to use this tool, you must know how to use
 - [`GraphQL`](https://graphql.org/) 
 - [`Sequelize`](https://sequelize.org/)
 - [`TypeScript`](https://www.typescriptlang.org/)
+
+## Database Support
+
+The goal is to support all databases that `sequelize` supports.
+
+Currently only tested `PostgreSQL` and `SQL Server`.
 
 ## How To Use
 
