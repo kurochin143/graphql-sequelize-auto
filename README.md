@@ -12,11 +12,9 @@ In order to use this tool, you must know how to use
 - [`Sequelize`](https://sequelize.org/)
 - [`TypeScript`](https://www.typescriptlang.org/)
 
-## Database Support
+## Peer Dependencies
 
-The goal is to support all databases that `sequelize` supports.
-
-Currently only tested `PostgreSQL` and `SQL Server`.
+See [`peer dependencies`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/package.json)
 
 ## How To Use
 
@@ -24,7 +22,7 @@ Currently only tested `PostgreSQL` and `SQL Server`.
 
 Install package
 ```
-$npm install graphql-sequelize-auto-generator -D
+$npm install graphql-sequelize-auto-generator
 ```
 
 #### Config
@@ -276,3 +274,9 @@ import { gsaResolvers } from "graphql-sequelize-auto-generator";
 See example project at [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example)
 
 See the generated GraphQL schema at [`schema`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/nonCode/generated/gsa/schema.generated.gql)
+
+## Database Support
+
+The goal is to support all databases that `sequelize` supports.
+
+Currently only tested `PostgreSQL` and `SQL Server`.
