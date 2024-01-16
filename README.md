@@ -260,7 +260,7 @@ getUsers: async (
 
 ## Scalar Resolvers
 
-You can resolve the generated scalars yourself or use gsaResolvers like in the [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/graphql/loadGraphQLSchema.ts)
+You can resolve the generated scalars yourself or use `gsaResolvers` like in the [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/graphql/loadGraphQLSchema.ts)
 ```
 import { gsaResolvers } from "graphql-sequelize-auto-generator";
 ```
