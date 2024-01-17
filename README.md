@@ -2,7 +2,7 @@
 
 Config based GraphQL schema generator.
 
-Generates GraphQL CRUD queries based on database schema and configuration. It also provides a service that will query the database based using the generated GraphQL query.
+Generates GraphQL CRUD queries based on database schema and configuration. It also provides a service that will query the database based on the GraphQL query.
 
 ## Prerequisite Knowledge
 
@@ -20,14 +20,14 @@ See [`peer dependencies`](https://github.com/kurochin143/graphql-sequelize-auto/
 
 ### npm package
 
-Install package
+Install package [`graphql-sequelize-auto-generator`](https://www.npmjs.com/package/graphql-sequelize-auto-generator)
 ```
 $npm install graphql-sequelize-auto-generator
 ```
 
 #### Config
 
-Follow the [config](#config) tutorial
+Follow the [config](#config) tutorial.
 
 #### Scripts
 ```json
@@ -43,11 +43,11 @@ $npm run gsa
 
 #### Code Usage
 
-Follow the [code usage](#code_usage) tutorial
+Follow the [code usage](#code_usage) tutorial.
 
 ## Config<a name="config"></a>
 
-Create a `gsa.config.ts` file in your project root
+Create a `gsa.config.ts` file in your project root.
 
 `gsa.config.ts`
 ```typescript
@@ -232,7 +232,7 @@ const config: GsaConfig = {
 
 ## Code Usage<a name="code_usage"></a>
 
-Creating a `gsa` object
+Creating a `gsa` object.
 ```typescript
 import { GraphQLSequelizeAuto } from "graphql-sequelize-auto-generator";
 import { initModels } from "../generated/gsa/sequelize/init-models";
@@ -245,7 +245,7 @@ const gsa = new GraphQLSequelizeAuto(
 );
 ```
 
-Using the `gsa` object in the resolver
+Using the `gsa` object in the resolver.
 ```typescript
 import {
 	GetUsersOutput,
@@ -264,16 +264,16 @@ getUsers: async (
 
 ## Scalar Resolvers
 
-You can resolve the generated scalars yourself or use `gsaResolvers` like in the [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/graphql/loadGraphQLSchema.ts)
+You can resolve the generated scalars yourself or use `gsaResolvers` like in the [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/graphql/loadGraphQLSchema.ts).
 ```
 import { gsaResolvers } from "graphql-sequelize-auto-generator";
 ```
 
 ## Example Project
 
-See example project at [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example)
+See example project at [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example).
 
-See the generated GraphQL schema at [`schema`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/nonCode/generated/gsa/schema.generated.gql)
+See the generated GraphQL schema at [`schema`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/nonCode/generated/gsa/schema.generated.gql).
 
 ## Database Support
 
