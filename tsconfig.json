@@ -12,5 +12,5 @@
     "declaration": true
   },
   "lib": ["es2015"],
-  "include": ["src/index.ts", "src/cli/index.ts"],
+  "include": ["src/index.ts", "src/cli/index.ts"]
 }
