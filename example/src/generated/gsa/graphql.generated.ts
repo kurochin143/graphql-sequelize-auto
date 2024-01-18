@@ -252,12 +252,12 @@ export type AddUserWithUserUserRolesInput = {
 };
 
 export type AddUserAssociatedFields = {
-  userUserRoles: Array<AddUserWithUserUserRolesInput>;
+  userUserRoles?: InputMaybe<Array<AddUserWithUserUserRolesInput>>;
 };
 
 export type AddUserInput = {
   primaryFields: AddUserPrimaryFields;
-  associatedFields: AddUserAssociatedFields;
+  associatedFields?: InputMaybe<AddUserAssociatedFields>;
 };
 
 export type AddedUser = {

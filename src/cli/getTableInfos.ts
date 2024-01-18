@@ -1,45 +1,7 @@
 import { TableData } from "sequelize-auto/types";
-import { ColumnDescription, Utils } from "sequelize";
+import { Utils } from "sequelize";
 import _, { camelCase, upperFirst } from "lodash";
-import { TableConfig } from ".";
-
-/*
- * fieldName=camelCase
- * columnName=whatever the db column casing is
- */
-
-export interface PrimaryFieldInfo {
-	fieldName: string;
-	columnName: string;
-	columnDescription: ColumnDescription;
-}
-
-export interface AssociatedFieldInfo {
-	fieldName: string;
-	tableName: string; // schema.table
-	modelName: string;
-	fieldNameOnChild?: string;
-	fieldNameOnParent?: string;
-	isArray: boolean;
-	isNullable: boolean;
-}
-
-export interface TableInfo<
-	T = Map<string, PrimaryFieldInfo>,
-	U = Map<string, AssociatedFieldInfo>,
-> {
-	tableName: string; // schema.table
-	modelName: string;
-	tableConfig?: TableConfig;
-	primaryKeys: string[]; // fieldNames
-	fieldName_primaryField_map: T;
-	fieldName_associatedField_map: U;
-}
-
-export type TableInfoObjectMap = TableInfo<
-	{ [fieldName: string]: PrimaryFieldInfo },
-	{ [fieldName: string]: AssociatedFieldInfo }
->;
+import { AssociatedFieldInfo, PrimaryFieldInfo, TableConfig, TableInfo } from "./types";
 
 const getTableInfos = (data: TableData, tableName_tableConfig_map: Map<string, TableConfig>) => {
 	const tableNames = Object.keys(data.tables);

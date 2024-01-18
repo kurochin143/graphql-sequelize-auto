@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo } from "graphql";
 import {
+	AddUsersOutput,
 	GetUsersOutput,
 	MutationAddUsersArgs,
 	MutationEditUsersArgs,
@@ -8,7 +9,7 @@ import {
 } from "../generated/gsa/graphql.generated";
 import gsaService from "../services/gsaService";
 import userService from "../services/userService";
-import { AddUsersOutput } from "../../../test/generated/graphql";
+
 const userResolvers = {
 	getUsers: async (
 		args: QueryGetUsersArgs,

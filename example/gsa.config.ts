@@ -83,7 +83,7 @@ const config: GsaConfig = {
 							associatedFields: [
 								{
 									name: "userUserRoles",
-									isOptional: false,
+									isOptional: true,
 									input: {
 										primaryFields: {
 											isOptional: false,

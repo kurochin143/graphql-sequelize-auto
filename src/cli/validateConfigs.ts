@@ -12,8 +12,8 @@ import {
 	InputPrimaryFieldsConfig,
 	SortByFieldConfig,
 	TableConfig,
-} from ".";
-import { TableInfo } from "./getTableInfos";
+	TableInfo,
+} from "./types";
 
 /**
  * Validate user defined configs using the database rawModels

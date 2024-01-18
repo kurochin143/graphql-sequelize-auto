@@ -213,12 +213,12 @@ input AddUserWithUserUserRolesInput {
 }
 
 input AddUserAssociatedFields {
-	userUserRoles: [AddUserWithUserUserRolesInput!]!
+	userUserRoles: [AddUserWithUserUserRolesInput!]
 }
 
 input AddUserInput {
 	primaryFields: AddUserPrimaryFields!
-	associatedFields: AddUserAssociatedFields!
+	associatedFields: AddUserAssociatedFields
 }
 
 type AddedUser {

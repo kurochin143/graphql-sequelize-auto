@@ -1,9 +1,4 @@
-import {
-	AssociatedFieldInfo,
-	PrimaryFieldInfo,
-	TableInfo,
-	TableInfoObjectMap,
-} from "./getTableInfos";
+import { AssociatedFieldInfo, PrimaryFieldInfo, TableInfo, TableInfoObjectMap } from "./types";
 
 /**
  * Map<T, U> to { [key: T]: U }

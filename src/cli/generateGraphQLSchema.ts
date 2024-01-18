@@ -1,6 +1,6 @@
 import { ColumnDescription, Utils } from "sequelize";
 import _, { upperFirst } from "lodash";
-import { TableInfo } from "./getTableInfos";
+import { TableInfo } from "./types";
 import { tabs } from "../utils/utils";
 import {
 	AddAssociatedFieldConfig,
@@ -14,7 +14,7 @@ import {
 	InputPrimaryFieldsConfig,
 	SortByFieldConfig,
 	TableConfig,
-} from ".";
+} from "./types";
 
 const generateGraphQLSchema = (
 	tableName_tableInfo_map: Map<string, TableInfo>,

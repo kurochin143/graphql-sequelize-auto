@@ -1,6 +1,6 @@
 {
   "name": "graphql-sequelize-auto-generator",
-  "version": "1.0.11",
+  "version": "1.0.15",
   "description": "",
   "author": "",
   "license": "ISC",
@@ -9,6 +9,7 @@
     "url": "https://github.com/kurochin143/graphql-sequelize-auto"
   },
   "module": "node",
+  "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
     "build",
@@ -30,7 +31,8 @@
     "fs-extra": "^10.0.0",
     "graphql-parse-resolve-info": "^4.12.0",
     "lodash": "^4.17.21",
-    "sequelize-auto": "https://github.com/kurochin143/sequelize-auto/tarball/build"
+    "sequelize-auto": "https://github.com/kurochin143/sequelize-auto/tarball/build",
+    "ts-node": "^10.9.2"
   },
   "peerDependencies": {
     "graphql": "^16.8.1",

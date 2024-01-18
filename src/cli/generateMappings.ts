@@ -1,9 +1,4 @@
-import { TableInfoObjectMap } from "./getTableInfos";
-
-export interface GsaMappings {
-	aliasName_tableName_objectMap: { [aliasName: string]: string };
-	tableName_tableInfo_objectMap: { [tableName: string]: TableInfoObjectMap };
-}
+import { GsaMappings, TableInfoObjectMap } from "./types";
 
 const generateMappings = (
 	aliasName_tableName_objectMap: { [aliasName: string]: string },

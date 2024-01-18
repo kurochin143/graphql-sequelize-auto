@@ -42,7 +42,7 @@
     "cross-env": "^7.0.3",
     "dotenv-cli": "^4.0.0",
     "eslint": "^7.32.0",
-    "graphql-sequelize-auto-generator": "^1.0.9",
+    "graphql-sequelize-auto-generator": "^1.0.15",
     "sequelize-cli": "^6.6.2",
     "ts-node-dev": "^1.1.8",
     "typescript": "^5.0.3"

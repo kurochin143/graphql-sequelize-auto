@@ -1,10 +1,10 @@
 import { GraphQLResolveInfo } from "graphql";
 import { parseResolveInfo, ResolveTree } from "graphql-parse-resolve-info";
-import { AssociatedFieldInfo, PrimaryFieldInfo, TableInfoObjectMap } from "../cli/getTableInfos";
+import { AssociatedFieldInfo, PrimaryFieldInfo, TableInfoObjectMap } from "../cli/types";
 import { IncludeOptions, Op, Order, Sequelize, Transaction, Utils, WhereOptions } from "sequelize";
 import { camelCase, snakeCase, upperFirst } from "lodash";
 import fse from "fs-extra";
-import { GsaMappings } from "../cli/generateMappings";
+import { GsaMappings } from "../cli/types";
 
 // @TODO rename to replace GraphQL in types with Gsa
 

@@ -6,6 +6,8 @@ export const GRAPHQL_PATH = "/api/graphql";
 export const createExpressApp = async () => {
 	const app = express();
 
+	app.use(express.json());
+
 	app.use(GRAPHQL_PATH, await apolloServer(app));
 
 	return app;

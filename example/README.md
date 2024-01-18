@@ -31,3 +31,7 @@ $npm run gsa
 // Run the app
 $npm run dev
 ```
+
+### Try GraphQL
+
+Go to `http://localhost:5000/api/graphql` to try out GraphQL queries.

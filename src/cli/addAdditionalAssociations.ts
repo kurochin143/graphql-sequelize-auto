@@ -1,7 +1,7 @@
 import fse from "fs-extra";
 import { camelCase, upperFirst } from "lodash";
 import { Utils } from "sequelize";
-import { TableConfig } from ".";
+import { TableConfig } from "./types";
 
 // @TODO this is better done in sequelize-auto
 const addAdditionalRelations = (sequelizeAutoDir: string, tableConfigs: TableConfig[]) => {
