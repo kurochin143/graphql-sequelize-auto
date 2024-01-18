@@ -273,7 +273,9 @@ import { gsaResolvers } from "graphql-sequelize-auto-generator";
 
 See example project at [`example`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example).
 
-See the generated GraphQL schema at [`schema`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/nonCode/generated/gsa/schema.generated.gql).
+See a full config example at [`gsa.config.ts`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/gsa.config.ts).
+
+See the generated GraphQL schema at [`schema.generated.gql`](https://github.com/kurochin143/graphql-sequelize-auto/tree/main/example/src/nonCode/generated/gsa/schema.generated.gql).
 
 ## Database Support
 
