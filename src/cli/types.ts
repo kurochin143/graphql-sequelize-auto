@@ -195,6 +195,7 @@ export interface TableAliasConfig {
 export interface TableConfig {
 	/**
 	 * Table name from the db including schema eg. public.users
+	 * For mysql, include the database name eg. mydb.users
 	 */
 	name: string;
 	aliasConfigs: TableAliasConfig[]; // @TODO rename all the word "alias" to graphqlType because it's ambiguous with db alias

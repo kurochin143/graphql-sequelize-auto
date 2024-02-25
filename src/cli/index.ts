@@ -13,6 +13,7 @@ import mapToObjectMap from "./mapToObjectMap";
 import { program } from "commander";
 import * as tsNode from "ts-node";
 import { GsaConfig, TableConfig } from "./types";
+import { ColumnDescription } from "sequelize";
 
 interface Options {
 	configFilePath: string;
@@ -66,6 +67,22 @@ tsNode.register();
 			const tableName_tableConfig_map = new Map<string, TableConfig>();
 			for (const tableConfig of gsaConfig.tableConfigs) {
 				tableName_tableConfig_map.set(tableConfig.name, tableConfig);
+			}
+
+			// prepend database name to table name for mysql
+			if (gsaConfig.dialect === "mysql") {
+				const tableNames = Object.keys(data.tables);
+				const newTables: {
+					[tableName: string]: {
+						[fieldName: string]: ColumnDescription;
+					};
+				} = {};
+				for (const tableName of tableNames) {
+					// mysql requires database name to be prefixed to table name because rel.childTable and rel.parentTable are prefixed
+					const adjustedTableName = `${gsaConfig.database}.${tableName}`;
+					newTables[adjustedTableName] = data.tables[tableName];
+				}
+				data.tables = newTables;
 			}
 
 			const tableName_tableInfo_map = getTableInfos(data, tableName_tableConfig_map);
