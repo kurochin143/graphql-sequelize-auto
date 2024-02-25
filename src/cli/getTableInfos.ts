@@ -67,11 +67,11 @@ const getTableInfo = (
 
 					if (isOneToOneWarning) {
 						console.warn(
-							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+							`@TODO Warning. one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentTable} to ${rel.childTable}.`,
 						);
 					} else {
 						throw Error(
-							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentTable} to ${rel.childTable}.`,
 						);
 					}
 				} else {
@@ -104,11 +104,11 @@ const getTableInfo = (
 
 					if (isOneToOneWarning) {
 						console.warn(
-							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+							`@TODO Warning. one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentTable} to ${rel.childTable}.`,
 						);
 					} else {
 						throw Error(
-							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentTable} to ${rel.childTable}.`,
 						);
 					}
 				} else {
@@ -143,7 +143,7 @@ const getTableInfo = (
 
 				if (isManyToManyWarning) {
 					console.warn(
-						`@TODO many-to-many not implemented yet for gsa. Found many-to-many ${rel.parentTable} to ${rel.childTable}.`,
+						`@TODO Warning. many-to-many not implemented yet for gsa. Found many-to-many ${rel.parentTable} to ${rel.childTable}.`,
 					);
 				} else {
 					throw Error(
