@@ -180,8 +180,15 @@ function recaseColumnNameToFieldName(val: string) {
 	return _.camelCase(val);
 }
 
-function getSequelizeModelName(tableName: string) {
-	const tableNameShort = tableName.split(".")[1];
+function getSequelizeModelName(tableNameLong: string) {
+	const tableNameSplit = tableNameLong.split(".");
+	let tableNameShort: string;
+	if (tableNameSplit.length === 1) {
+		tableNameShort = tableNameLong;
+	} else {
+		// concat all after first, in case of schema.table.etc
+		tableNameShort = tableNameSplit.slice(1).join(".");
+	}
 	return upperFirst(camelCase(tableNameShort));
 }
 
