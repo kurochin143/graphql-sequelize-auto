@@ -223,8 +223,16 @@ export interface GsaConfig {
 	 */
 	additionalGqlSchemas?: string[];
 	dialect: "mysql" | "postgres" | "sqlite" | "mariadb" | "mssql";
-	tableConfigs: TableConfig[];
 	skipTables?: string[];
+	/**
+	 * Warning instead of error
+	 */
+	isOneToOneWarning?: boolean;
+	/**
+	 * Warning instead of error
+	 */
+	isManyToManyWarning?: boolean;
+	tableConfigs: TableConfig[];
 }
 
 // ---------------------------------------------- getTableInfos

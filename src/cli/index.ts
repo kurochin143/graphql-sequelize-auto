@@ -85,7 +85,12 @@ tsNode.register();
 				data.tables = newTables;
 			}
 
-			const tableName_tableInfo_map = getTableInfos(data, tableName_tableConfig_map);
+			const tableName_tableInfo_map = getTableInfos(
+				data,
+				tableName_tableConfig_map,
+				gsaConfig.isOneToOneWarning,
+				gsaConfig.isManyToManyWarning,
+			);
 			const validateRes = validateConfigs(gsaConfig.tableConfigs, tableName_tableInfo_map);
 
 			// uncertainMap to certainMap

@@ -3,7 +3,12 @@ import { Utils } from "sequelize";
 import _, { camelCase, upperFirst } from "lodash";
 import { AssociatedFieldInfo, PrimaryFieldInfo, TableConfig, TableInfo } from "./types";
 
-const getTableInfos = (data: TableData, tableName_tableConfig_map: Map<string, TableConfig>) => {
+const getTableInfos = (
+	data: TableData,
+	tableName_tableConfig_map: Map<string, TableConfig>,
+	isOneToOneWarning?: boolean,
+	isManyToManyWarning?: boolean,
+) => {
 	const tableNames = Object.keys(data.tables);
 
 	const tableName_tableInfo_map = new Map<string, TableInfo>();
@@ -11,14 +16,26 @@ const getTableInfos = (data: TableData, tableName_tableConfig_map: Map<string, T
 	for (const tableName of tableNames) {
 		tableName_tableInfo_map.set(
 			tableName,
-			getTableInfo(tableName, data, tableName_tableConfig_map.get(tableName)),
+			getTableInfo(
+				tableName,
+				data,
+				tableName_tableConfig_map.get(tableName),
+				isOneToOneWarning,
+				isManyToManyWarning,
+			),
 		);
 	}
 
 	return tableName_tableInfo_map;
 };
 
-const getTableInfo = (tableNameLong: string, data: TableData, tableConfig?: TableConfig) => {
+const getTableInfo = (
+	tableNameLong: string,
+	data: TableData,
+	tableConfig: TableConfig | undefined,
+	isOneToOneWarning?: boolean,
+	isManyToManyWarning?: boolean,
+) => {
 	const tableInfo: TableInfo = {
 		tableName: tableNameLong,
 		modelName: getSequelizeModelName(tableNameLong),
@@ -48,7 +65,15 @@ const getTableInfo = (tableNameLong: string, data: TableData, tableConfig?: Tabl
 					// 	isNullable: table[parentIdSnake].allowNull,
 					// });
 
-					throw Error("@TODO one-to-one not implemented yet for gsa");
+					if (isOneToOneWarning) {
+						console.warn(
+							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+						);
+					} else {
+						throw Error(
+							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+						);
+					}
 				} else {
 					// many-to-one
 					// current table is a child that belongsTo parent
@@ -77,7 +102,15 @@ const getTableInfo = (tableNameLong: string, data: TableData, tableConfig?: Tabl
 					// 	isNullable: true,
 					// });
 
-					throw Error("@TODO one-to-one not implemented yet for gsa");
+					if (isOneToOneWarning) {
+						console.warn(
+							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+						);
+					} else {
+						throw Error(
+							`@TODO one-to-one not implemented yet for gsa. Found one-to-one ${rel.parentProp} to ${rel.childTable}.`,
+						);
+					}
 				} else {
 					// one-to-many
 					const lur = Utils.pluralize(rel.childProp);
@@ -108,7 +141,15 @@ const getTableInfo = (tableNameLong: string, data: TableData, tableConfig?: Tabl
 				// 	isNullable: false,
 				// });
 
-				throw Error("@TODO many-to-many not implemented yet for gsa");
+				if (isManyToManyWarning) {
+					console.warn(
+						`@TODO many-to-many not implemented yet for gsa. Found many-to-many ${rel.parentTable} to ${rel.childTable}.`,
+					);
+				} else {
+					throw Error(
+						`@TODO many-to-many not implemented yet for gsa. Found many-to-many ${rel.parentTable} to ${rel.childTable}.`,
+					);
+				}
 			}
 		}
 	});
