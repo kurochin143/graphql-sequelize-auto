@@ -27,6 +27,12 @@ const validateConfigs = (
 	const aliasName_tableName_map = new Map<string, string>();
 
 	for (const tableConfig of tableConfigs) {
+		const tableInfo = tableName_tableInfo_map.get(tableConfig.name);
+
+		if (!tableInfo) {
+			throw Error(`Table ${tableConfig.name} does not exist`);
+		}
+
 		for (const aliasConfig of tableConfig.aliasConfigs) {
 			const foundTableName = aliasName_tableName_map.get(aliasConfig.name);
 			if (foundTableName !== undefined) {
